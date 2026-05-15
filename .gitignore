@@ -1,0 +1,3 @@
+kagi-search-mcp
+*.test
+.env
