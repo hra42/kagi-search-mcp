@@ -107,18 +107,18 @@ func TestPromptHandlers_HappyPath(t *testing.T) {
 			if msg.Role != "user" {
 				t.Errorf("want role=user, got %q", msg.Role)
 			}
-			tc_text, ok := msg.Content.(*mcp.TextContent)
+			tcText, ok := msg.Content.(*mcp.TextContent)
 			if !ok {
 				t.Fatalf("want *mcp.TextContent, got %T", msg.Content)
 			}
 			for _, want := range tc.wantInTxt {
-				if !strings.Contains(tc_text.Text, want) {
-					t.Errorf("message text missing %q.\nGot:\n%s", want, tc_text.Text)
+				if !strings.Contains(tcText.Text, want) {
+					t.Errorf("message text missing %q.\nGot:\n%s", want, tcText.Text)
 				}
 			}
 			for _, tool := range tc.wantTools {
-				if !strings.Contains(tc_text.Text, tool) {
-					t.Errorf("message text missing tool reference %q.\nGot:\n%s", tool, tc_text.Text)
+				if !strings.Contains(tcText.Text, tool) {
+					t.Errorf("message text missing tool reference %q.\nGot:\n%s", tool, tcText.Text)
 				}
 			}
 		})
