@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/mcpb/main/dist/mcpb-manifest.schema.json",
+  "manifest_version": "0.3",
+  "name": "kagi-search-mcp",
+  "display_name": "Kagi Search",
+  "version": "0.3.0",
+  "description": "Web search and content extraction via the Kagi API.",
+  "long_description": "Exposes Kagi's web search and HTML-to-markdown extract APIs as MCP tools, plus five prompts for research workflows (research, fact-check, compare-sources, find-primary-sources, summarize-url). Requires a Kagi API key.",
+  "author": {
+    "name": "Henry Rausch",
+    "url": "https://github.com/hra42"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hra42/kagi-search-mcp"
+  },
+  "homepage": "https://github.com/hra42/kagi-search-mcp",
+  "support": "https://github.com/hra42/kagi-search-mcp/issues",
+  "license": "MIT",
+  "keywords": ["search", "kagi", "research", "web"],
+  "privacy_policies": ["https://kagi.com/privacy"],
+  "server": {
+    "type": "binary",
+    "entry_point": "server/kagi-search-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/server/kagi-search-mcp",
+      "args": [],
+      "env": {
+        "KAGI_API_KEY": "${user_config.kagi_api_key}"
+      }
+    }
+  },
+  "user_config": {
+    "kagi_api_key": {
+      "type": "string",
+      "title": "Kagi API Key",
+      "description": "Get one at https://kagi.com/settings?p=api",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "tools": [
+    { "name": "kagi_search", "description": "Search the web with Kagi." },
+    { "name": "kagi_extract", "description": "Extract page content as markdown from HTTPS URLs." }
+  ],
+  "prompts_generated": true,
+  "compatibility": {
+    "platforms": ["darwin", "linux", "win32"]
+  }
+}

@@ -1,0 +1,14 @@
+# Source and build artifacts — bundles only ship the prebuilt binary + manifest
+*.go
+go.mod
+go.sum
+.git/
+.github/
+.golangci.yml
+README.md
+LICENSE
+dist/
+cover.out
+.claude/
+bundle/
+*.mcpb
