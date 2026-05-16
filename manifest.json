@@ -3,7 +3,7 @@
   "manifest_version": "0.3",
   "name": "kagi-search-mcp",
   "display_name": "Kagi Search",
-  "version": "0.3.0",
+  "version": "0.1.0",
   "description": "Web search and content extraction via the Kagi API.",
   "long_description": "Exposes Kagi's web search and HTML-to-markdown extract APIs as MCP tools, plus five prompts for research workflows (research, fact-check, compare-sources, find-primary-sources, summarize-url). Requires a Kagi API key.",
   "author": {

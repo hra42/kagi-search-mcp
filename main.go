@@ -23,7 +23,7 @@ import (
 	"golang.org/x/time/rate"
 )
 
-const version = "0.3.0"
+const version = "0.1.0"
 
 // serverInstructions is returned in the Initialize response. MCP clients
 // (Claude Code, Claude Desktop, VS Code Copilot, etc.) typically inject this
