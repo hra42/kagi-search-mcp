@@ -7,6 +7,21 @@ A local [MCP](https://modelcontextprotocol.io) server that exposes the [Kagi](ht
 
 Transports: **stdio** (default) and **Streamable HTTP** (via `--http`).
 
+## Install (Claude Desktop, one-click)
+
+1. Download the latest `.mcpb` for your platform from the [Releases page](https://github.com/hra42/kagi-search-mcp/releases/latest):
+   - macOS Apple Silicon: `kagi-search-mcp-vX.Y.Z-darwin-arm64.mcpb`
+   - macOS Intel:         `kagi-search-mcp-vX.Y.Z-darwin-amd64.mcpb`
+   - Linux x86_64:        `kagi-search-mcp-vX.Y.Z-linux-amd64.mcpb`
+   - Windows x86_64:      `kagi-search-mcp-vX.Y.Z-windows-amd64.mcpb`
+2. Double-click the file. Claude Desktop shows an install dialog.
+3. Paste your Kagi API key (get one at https://kagi.com/settings?p=api) when prompted.
+4. Done — the search tools and prompts appear in the next conversation.
+
+> **Note:** Claude Desktop will show an "unverified publisher" warning on install. This is normal — the bundle is not code-signed. Verify the download came from this repo's official releases page.
+
+For other MCP clients (Claude Code, VS Code Copilot, custom integrations), see [Manual install](#manual-install) below.
+
 ## Requirements
 
 - Go 1.26+
@@ -19,9 +34,9 @@ go mod tidy
 go build -o kagi-search-mcp .
 ```
 
-## Configure in Claude Desktop
+## Manual install
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
+For clients that don't support MCPB bundles, or to run the server from source: edit the client's MCP server config. For Claude Desktop, that's `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
 
 ```json
 {
