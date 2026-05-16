@@ -212,6 +212,29 @@ func TestFormatExtract_PerURLTruncation(t *testing.T) {
 	}
 }
 
+func TestFormatExtract_EmptyMarkdownExplained(t *testing.T) {
+	// Kagi sometimes returns data[i] with empty markdown and no matching error
+	// (observed on bot-protected / JS-rendered pages). The formatter should emit
+	// a diagnostic instead of a bare "(no content)" and mark the item as errored.
+	r := &kagi.ExtractResult{Data: []kagi.PageResult{{URL: "https://a.example", Markdown: ""}}}
+	text, items := FormatExtract(r, []string{"https://a.example"}, formatOptions{})
+
+	for _, want := range []string{"no content extracted", "bot detection", "kagi_search"} {
+		if !strings.Contains(text, want) {
+			t.Errorf("expected diagnostic mentioning %q in:\n%s", want, text)
+		}
+	}
+	if len(items) != 1 {
+		t.Fatalf("want 1 item, got %d", len(items))
+	}
+	if items[0].Error == "" {
+		t.Error("structured item should carry the diagnostic in Error so programmatic consumers can detect failure")
+	}
+	if items[0].Markdown != "" {
+		t.Errorf("structured item Markdown should stay empty, got %q", items[0].Markdown)
+	}
+}
+
 func TestFormatExtract_AllFailuresAddsGlobalHint(t *testing.T) {
 	r := &kagi.ExtractResult{
 		Errors: []kagi.ErrorDetail{

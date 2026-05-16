@@ -137,8 +137,10 @@ func FormatExtract(result *kagi.ExtractResult, requestedURLs []string, opts form
 	for _, page := range result.Data {
 		fmt.Fprintf(&sb, "## %s\n\n", page.URL)
 		md := page.Markdown
+		emptyMsg := ""
 		if md == "" {
-			sb.WriteString("_(no content)_")
+			emptyMsg = "Kagi's extractor returned no content for this URL and no error. Common causes: the page blocks server-side fetchers (bot detection, paywall, geo-block), the page is rendered entirely in JavaScript, or the page is a 404 / redirect. Try kagi_search for an archive.org or AMP mirror, or verify the URL loads in a browser."
+			fmt.Fprintf(&sb, "_(no content extracted — %s)_", emptyMsg)
 		} else {
 			truncated, cut := truncatePerURL(md, opts.perURLMaxChars)
 			sb.WriteString(truncated)
@@ -151,6 +153,9 @@ func FormatExtract(result *kagi.ExtractResult, requestedURLs []string, opts form
 		item := ExtractItem{URL: page.URL, Markdown: page.Markdown}
 		if msg, ok := errByURL[page.URL]; ok {
 			item.Error = msg
+			totalErrors++
+		} else if emptyMsg != "" {
+			item.Error = emptyMsg
 			totalErrors++
 		}
 		items = append(items, item)
