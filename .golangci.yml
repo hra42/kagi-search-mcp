@@ -1,0 +1,22 @@
+run:
+  timeout: 5m
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - gosec
+    - revive
+    - ineffassign
+    - unused
+
+linters-settings:
+  gosec:
+    excludes:
+      - G104 # already covered by errcheck where it matters
+  revive:
+    rules:
+      - name: var-naming
+      - name: exported
+        disabled: true
